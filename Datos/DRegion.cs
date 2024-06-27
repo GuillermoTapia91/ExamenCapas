@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Datos
 {
-    internal class DRegion
+    public class DRegion
     {
         public List<Region> Listar(string Nombre)
         {
@@ -24,9 +24,11 @@ namespace Datos
 
 
                 //Enviar los parámetros
+                /*
                 SqlParameter parameter = new SqlParameter("RegionName", SqlDbType.VarChar, 50);
                 parameter.Value = Nombre;
                 cmd.Parameters.Add(parameter);
+                */
 
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -38,7 +40,7 @@ namespace Datos
                     int RegionId = reader["RegionId"] != DBNull.Value ? Convert.ToInt32(reader["RegionId"]) : 0;
                     string RegionName = reader["RegionName"] != DBNull.Value ? Convert.ToString(reader["RegionName"]) : "";
 
-                    roles.Add(new Region { RegionId = RegionId, RegionName = RegionName });
+                    regions.Add(new Region { RegionId = RegionId, RegionName = RegionName });
 
 
                 }

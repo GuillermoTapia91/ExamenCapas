@@ -44,6 +44,7 @@
             this.btnListarRegion.TabIndex = 0;
             this.btnListarRegion.Text = "Listar";
             this.btnListarRegion.UseVisualStyleBackColor = true;
+            this.btnListarRegion.Click += new System.EventHandler(this.btnListarRegion_Click);
             // 
             // dgvRegion
             // 
