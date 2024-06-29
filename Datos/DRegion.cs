@@ -12,6 +12,29 @@ namespace Datos
 {
     public class DRegion
     {
+        public void Insertar(string Nombre)
+        {
+            using (var connection = new SqlConnection(Conexion.cadena))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("RSP_InsertRegion", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                //Enviar los parámetros
+                SqlParameter parameter = new SqlParameter("@RegionName", SqlDbType.VarChar, 50);
+                parameter.Value = Nombre;
+                command.Parameters.Add(parameter);
+
+                /*
+                SqlParameter parameter2 = new SqlParameter("@Enabled", SqlDbType.Bit);
+                parameter2.Value = Activo;
+                command.Parameters.Add(parameter2);
+                */
+
+                command.ExecuteNonQuery();
+
+            }
+        }
         public List<Region> Listar(string Nombre)
         {
             List<Region> regions = new List<Region>();

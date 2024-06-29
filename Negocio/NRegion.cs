@@ -13,6 +13,13 @@ namespace Negocio
     public class NRegion
     {
         DRegion datos = new DRegion();
+
+        public void Insertar(string Nombre)
+        {
+            
+            datos.Insertar(Nombre);
+        }
+
         public List<Region> Listar(string Nombre)
         {
             List<Region> result = new List<Region>();
