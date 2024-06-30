@@ -14,6 +14,12 @@ namespace Negocio
     {
         DRegion datos = new DRegion();
 
+
+        public void Actualizar(int RegionId,string RegionName)
+        {
+
+            datos.Actualizar(RegionId,RegionName);
+        }
         public void Insertar(string Nombre)
         {
             
@@ -26,6 +32,12 @@ namespace Negocio
 
             result = datos.Listar(Nombre);
             return result;
+        }
+
+        public void Eliminar(int RegionId)
+        {
+
+            datos.Eliminar(RegionId);
         }
     }
 }

@@ -28,7 +28,9 @@ namespace Presentacion
                 //Registrat Rol, se comunica con la capa negocio
                 
                 negocio.Insertar(txtRegionName.Text);
+                txtDeleteRegion.Text = "";
                 MessageBox.Show("Registro exitoso");
+                dgvRegion.DataSource = negocio.Listar(btnListarRegion.Text);
             }
             catch (Exception)
             {
@@ -36,6 +38,45 @@ namespace Presentacion
                 throw;
             }
 
+        }
+
+        private void btnEditRegion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                negocio.Actualizar(Convert.ToInt32(txtEditRegionID.Text), txtEditRegionName.Text);
+                MessageBox.Show("Actualización exitosa");
+                txtEditRegionID.Text = "";
+                txtEditRegionName.Text = "";
+                dgvRegion.DataSource = negocio.Listar(btnListarRegion.Text);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Comunicarse con el Admin");
+                throw;
+            }
+            
+        }
+
+        private void btnDeleteRegion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                negocio.Eliminar(Convert.ToInt32(txtDeleteRegion.Text));
+                MessageBox.Show("Eliminación exitosa");
+                txtDeleteRegion.Text = "";
+                dgvRegion.DataSource = negocio.Listar(btnListarRegion.Text);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Comunicarse con el Admin");
+                throw;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            dgvRegion.DataSource = negocio.Listar(btnListarRegion.Text);
         }
     }
 }

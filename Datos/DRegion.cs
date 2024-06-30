@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Datos
@@ -35,6 +36,37 @@ namespace Datos
 
             }
         }
+
+        public void Actualizar(int RegionId,string RegionName) 
+        {
+            using (var connection = new SqlConnection(Conexion.cadena))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("RSP_UpdateRegion", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                //Enviar los parámetros
+
+                SqlParameter parameter1 = new SqlParameter("@RegionId", SqlDbType.Int);
+                parameter1.Value = RegionId;
+                command.Parameters.Add(parameter1);
+
+                SqlParameter parameter2 = new SqlParameter("@RegionName", SqlDbType.VarChar, 50);
+                parameter2.Value = RegionName;
+                command.Parameters.Add(parameter2);
+
+                /*
+                SqlParameter parameter2 = new SqlParameter("@Enabled", SqlDbType.Bit);
+                parameter2.Value = Activo;
+                command.Parameters.Add(parameter2);
+                */
+
+                command.ExecuteNonQuery();
+
+            }
+
+
+        }
         public List<Region> Listar(string Nombre)
         {
             List<Region> regions = new List<Region>();
@@ -46,12 +78,7 @@ namespace Datos
                 cmd.CommandType = CommandType.StoredProcedure;
 
 
-                //Enviar los parámetros
-                /*
-                SqlParameter parameter = new SqlParameter("RegionName", SqlDbType.VarChar, 50);
-                parameter.Value = Nombre;
-                cmd.Parameters.Add(parameter);
-                */
+                
 
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -72,5 +99,27 @@ namespace Datos
             return regions;
 
         }
+
+        public void Eliminar(int RegionId)
+        {
+            using (var connection = new SqlConnection(Conexion.cadena))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("RSP_DeleteRegion", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                //Enviar los parámetros
+
+                SqlParameter parameter1 = new SqlParameter("@RegionId", SqlDbType.Int);
+                parameter1.Value = RegionId;
+                command.Parameters.Add(parameter1);
+                               
+                command.ExecuteNonQuery();
+
+            }
+
+
+        }
+
     }
 }
